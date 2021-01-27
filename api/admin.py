@@ -10,6 +10,7 @@ class ApiCompanyAdmin(admin.ModelAdmin):
 class ApiEmployeeAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
     fields = ('id', 'last_name', 'first_name', 'middle_name', 'company')
+    list_filter = ('company',)
 
 
 admin.site.register(Company, ApiCompanyAdmin)
