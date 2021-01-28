@@ -1,17 +1,12 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from api.models.company import Company
-
-company_list = [
-    {"id": 1, "name": "first company"}
-]
+from .helpers.data_structures import company_list
+from .helpers.functions import create_company
 
 
 class CompanyTestCase(APITestCase):
     def setUp(self) -> None:
-        company = Company()
-        company.name = company_list[0]['name']
-        company.save()
+        create_company(company_list[0]['name'])
 
     def test_list(self) -> None:
         response = self.client.get('/api/companies/')
