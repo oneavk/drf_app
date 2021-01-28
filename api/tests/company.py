@@ -20,5 +20,5 @@ class CompanyTestCase(APITestCase):
 
     def test_retrieve(self) -> None:
         response = self.client.get('/api/companies/1/')
-        self.assertEqual(response, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, company_list[0])
