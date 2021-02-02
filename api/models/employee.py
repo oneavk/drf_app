@@ -11,8 +11,8 @@ class Employee(models.Model):
         ordering = ('last_name', 'first_name', 'middle_name')
 
     @property
-    def name(self):
-        return ' '.join([self.last_name, self.first_name, self.middle_name])
+    def name(self) -> str:
+        return ' '.join([part for part in (self.last_name, self.first_name, self.middle_name) if part])
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.id}: {self.name}'
