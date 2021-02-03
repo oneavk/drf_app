@@ -2,6 +2,7 @@
 Module for test helper functions
 """
 from api.models import Company, Employee
+from django.contrib.auth.models import User
 
 
 def create_company(name: str) -> Company:
@@ -19,3 +20,11 @@ def create_employee(last_name: str, first_name: str, middle_name: str, company: 
     employee.company = company
     employee.save()
     return employee
+
+
+def create_user(username: str = 'user', password: str = 'password') -> User:
+    user = User()
+    user.username = username
+    user.set_password(password)
+    user.save()
+    return user
