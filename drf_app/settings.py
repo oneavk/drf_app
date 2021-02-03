@@ -1,7 +1,7 @@
 """
 Django settings for drf_app project.
 """
-
+from datetime import timedelta
 import os
 import environ
 from pathlib import Path
@@ -116,4 +116,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+# SIMPLE JWT config
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=env.int('ACCESS_TOKEN_LIFETIME', default=1800)),
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=env.int('REFRESH_TOKEN_LIFETIME', default=86400)),
 }
