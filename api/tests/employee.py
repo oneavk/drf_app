@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .helpers.functions import create_company, create_employee
+from .helpers.functions import create_company, create_employee, get_auth
 from .helpers.data_structures import company_list, employee_list
 from api.models import Employee
 
@@ -18,11 +18,13 @@ class EmployeeTestCase(APITestCase):
             employee_list[i]['company'] = company.id
 
     def test_list(self) -> None:
+        get_auth(self.client)
         response = self.client.get('/api/employees/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, employee_list)
 
     def test_retrieve(self) -> None:
+        get_auth(self.client)
         response = self.client.get('/api/employees/1/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, employee_list[0])

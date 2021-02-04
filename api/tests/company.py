@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 from .helpers.data_structures import company_list
-from .helpers.functions import create_company
+from .helpers.functions import create_company, get_auth
 
 
 class CompanyTestCase(APITestCase):
@@ -9,11 +9,13 @@ class CompanyTestCase(APITestCase):
         create_company(company_list[0]['name'])
 
     def test_list(self) -> None:
+        get_auth(self.client)
         response = self.client.get('/api/companies/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, company_list)
 
     def test_retrieve(self) -> None:
+        get_auth(self.client)
         response = self.client.get('/api/companies/1/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, company_list[0])
