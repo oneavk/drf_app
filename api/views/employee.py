@@ -6,3 +6,4 @@ from api.models import Employee
 class EmployeeViewSet(ModelViewSet):
     serializer_class = EmployeeSerializer
     queryset = Employee.objects.all()
+    http_method_names = ['get', 'post', 'put', 'delete']
