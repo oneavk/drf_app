@@ -3,7 +3,8 @@ Module for test data structures
 """
 
 company_list = [
-    {"id": 1, "name": "first company"}
+    {"id": 1, "name": "first company"},
+    {"id": 2, "name": "second company"}
 ]
 
 employee_list = [
