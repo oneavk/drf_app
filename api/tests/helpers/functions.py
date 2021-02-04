@@ -2,7 +2,7 @@
 Module for test helper functions
 """
 from api.models import Company, Employee
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.exceptions import AuthenticationFailed
@@ -33,12 +33,17 @@ def create_user(username: str = 'user', password: str = 'password') -> User:
     return user
 
 
-def get_auth(client: APIClient) -> None:
+def get_auth(client: APIClient, permissions: list = None) -> None:
     username = 'username'
     password = 'password'
     auth_data = {'username': username, 'password': password}
 
-    create_user(username, password)
+    user = create_user(username, password)
+    if permissions is not None:
+        for codename in permissions:
+            permission = Permission.objects.filter(codename=codename).first()
+            user.user_permissions.add(permission)
+
     response = client.post('/api/auth/', auth_data)
 
     if response.status_code != status.HTTP_200_OK:
